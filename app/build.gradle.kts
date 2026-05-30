@@ -55,9 +55,14 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.converter.gson)
+    implementation(libs.logging.interceptor)
 
     // Paging3
     implementation(libs.androidx.paging.common)
+    implementation(libs.androidx.paging.runtime.ktx)
+
+    // Glide
+    implementation(libs.glide)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
