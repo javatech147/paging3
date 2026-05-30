@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.android.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -31,6 +33,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    viewBinding { enable = true }
 }
 
 dependencies {
@@ -40,6 +44,21 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.dagger.hilt.android.compiler)
+
+    // ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // Retrofit
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.gson)
+
+    // Paging3
+    implementation(libs.androidx.paging.common)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
