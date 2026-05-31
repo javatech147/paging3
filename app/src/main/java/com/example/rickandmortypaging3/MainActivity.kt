@@ -12,17 +12,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: CharacterViewModel by viewModels()
 
+    val characterListAdapter: CharacterListAdapter by lazy { CharacterListAdapter() }
+    val progressLoaderAdapter: ProgressLoaderAdapter by lazy { ProgressLoaderAdapter() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val characterAdapter = CharacterAdapter()
-        binding.rvCharacter.adapter = characterAdapter
+        binding.rvCharacter.adapter = characterListAdapter.withLoadStateHeaderAndFooter(
+            header = progressLoaderAdapter,
+            footer = progressLoaderAdapter
+        )
 
         viewModel.characters.observe(this) { characters ->
-            characterAdapter.submitData(lifecycle = lifecycle, pagingData = characters)
+            characterListAdapter.submitData(lifecycle = lifecycle, pagingData = characters)
         }
     }
 }
