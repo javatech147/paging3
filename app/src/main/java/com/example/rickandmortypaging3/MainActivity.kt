@@ -1,6 +1,7 @@
 package com.example.rickandmortypaging3
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +13,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: CharacterViewModel by viewModels()
 
-    val characterListAdapter: CharacterListAdapter by lazy { CharacterListAdapter() }
+    val characterListAdapter: CharacterListAdapter by lazy {
+        CharacterListAdapter {
+            // Navigate to Details screen
+            Toast.makeText(this, "${it.name} clicked", Toast.LENGTH_SHORT).show()
+        }
+    }
     val progressLoaderAdapter: ProgressLoaderAdapter by lazy { ProgressLoaderAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {

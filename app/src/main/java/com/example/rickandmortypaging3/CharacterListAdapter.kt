@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.rickandmortypaging3.databinding.ItemCharacterBinding
 import com.example.rickandmortypaging3.model.Character
 
-class CharacterListAdapter :
+class CharacterListAdapter(private val onItemClick: (Character) -> Unit) :
     PagingDataAdapter<Character, CharacterListAdapter.CharacterViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CharacterViewHolder(
@@ -26,7 +26,7 @@ class CharacterListAdapter :
         }
     }
 
-    class CharacterViewHolder(val binding: ItemCharacterBinding) :
+    inner class CharacterViewHolder(val binding: ItemCharacterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Character) {
             with(binding) {
@@ -39,6 +39,9 @@ class CharacterListAdapter :
                     .error(R.drawable.ic_launcher_foreground)
                     .circleCrop()
                     .into(imageView)
+                root.setOnClickListener {
+                    onItemClick.invoke(item)
+                }
             }
         }
     }
